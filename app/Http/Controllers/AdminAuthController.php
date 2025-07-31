@@ -29,11 +29,13 @@ class AdminAuthController extends Controller
     if (Auth::attempt($credentials)) {
         $user = Auth::user();
 
-       
+        if ($user->role == 'admin') {
+              $request->session()->regenerate();
+            return redirect()->intended('/admin/dashboard');
+        }
 
         // Authentification réussie et utilisateur est admin
-        $request->session()->regenerate(); // Sécurise la session
-        return redirect()->route('dashboard'); // Redirige vers le tableau de bord
+       // Sécurise la session
     }
 
     // En cas d'échec
