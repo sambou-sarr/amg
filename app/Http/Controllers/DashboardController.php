@@ -42,7 +42,7 @@ class DashboardController extends Controller
     protected function calculateTotalSales(): float
     {
         $total = DB::table('detail_commandes')
-            ->selectRaw('SUM(prix_unitaire * quantite) as total') // Pas besoin de cast ici
+             ->selectRaw('SUM(CAST(prix_unitaire AS FLOAT) * quantite) as total') // Pas besoin de cast ici
             ->value('total');
 
         return (float) ($total ?? 0);
