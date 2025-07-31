@@ -45,6 +45,7 @@ Route::get('/client',[ProduitController::class, 'indexclient'])->name('client.in
 
 use App\Http\Controllers\CartController;
 use App\Models\User;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
 
 Route::get('/create-admin', function () {
@@ -61,7 +62,14 @@ Route::get('/create-admin', function () {
     );
     return 'Admin créé ou mis à jour !';
 });
-
+Route::get('/run-migration', function () {
+    try {
+        Artisan::call('migrate', ['--force' => true]); // --force pour bypass la confirmation
+        return 'Migration lancée avec succès.';
+    } catch (\Exception $e) {
+        return 'Erreur : ' . $e->getMessage();
+    }
+});
 
 
 Route::get('/', [CartController::class, 'indexp']);
