@@ -11,6 +11,23 @@ use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
 
+
+Route::get('/create-admin', function () {
+    $admin = User::updateOrCreate(
+        ['email' => 'diopjunior015@gmail.com'],
+        [
+            'nom' => 'diop',
+            'prenom' => 'junior',
+            'telephone' => '+221781498848',
+            'role' => 'admin',
+            'email_verified_at' => now(),
+            'password' => Hash::make('12345678'),
+        ]
+    );
+    return 'Admin créé ou mis à jour !';
+});
+
+
 Route::get('/user', function () {return view('index');});
 
 
@@ -52,46 +69,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/client',[ProduitController::class, 'indexclient'])->name('client.index');
-
-Route::get('/test-https', function() {
-    return [
-        'https' => request()->isSecure(),
-        'header_x_forwarded_proto' => request()->header('X-Forwarded-Proto'),
-    ];
-});
-
-
-Route::get('/clear-cache', function () {
-    Artisan::call('config:clear');
-    Artisan::call('cache:clear');
-    Artisan::call('route:clear');
-    Artisan::call('view:clear');
-    return 'Cache Laravel vidé avec succès !';
-});
-
-
-Route::get('/create-admin', function () {
-    $admin = User::updateOrCreate(
-        ['email' => 'diopjunior015@gmail.com'],
-        [
-            'nom' => 'diop',
-            'prenom' => 'junior',
-            'telephone' => '+221781498848',
-            'role' => 'admin',
-            'email_verified_at' => now(),
-            'password' => Hash::make('12345678'),
-        ]
-    );
-    return 'Admin créé ou mis à jour !';
-});
-Route::get('/run-migration', function () {
-    try {
-        Artisan::call('migrate', ['--force' => true]); // --force pour bypass la confirmation
-        return 'Migration lancée avec succès.';
-    } catch (\Exception $e) {
-        return 'Erreur : ' . $e->getMessage();
-    }
-});
 
 
 Route::get('/', [CartController::class, 'indexp']);
