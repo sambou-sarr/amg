@@ -12,7 +12,6 @@ class AdminAuthController extends Controller
     // Afficher le formulaire de connexion admin
     public function loginForm()
     {
-      
 
         return view('admin.login');
     }

@@ -61,13 +61,7 @@ Route::get('/test-https', function() {
 });
 
 
-Route::get('/clear-cache', function () {
-    Artisan::call('config:clear');
-    Artisan::call('cache:clear');
-    Artisan::call('route:clear');
-    Artisan::call('view:clear');
-    return 'Cache Laravel vidé avec succès !';
-});
+
 
 
 Route::get('/create-admin', function () {
