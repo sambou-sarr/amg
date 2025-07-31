@@ -6,6 +6,7 @@ use App\Models\Commande;
 use App\Models\DetailCommande;
 use App\Models\Produit;
 use App\Models\User;
+use App\Notifications\Alertadmin;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf; // Correct sous Laravel 11
 
@@ -70,10 +71,17 @@ class CommandeController extends Controller
 
                 // Mise à jour du stock
                 $product->decrement('stock', $produit['quantite']);
+                $details[] = $DetailCommande;
                 $DetailCommande->save();
+
             }
            // dd($details);
             // Générer le PDF
+             $admin = User::where('role', 'admin')->first(); // ou autre critère
+                if ($admin) {
+                    $admin->notify(new Alertadmin($commande, $details));
+                }
+
           
             return redirect()->route('commandes.index', $commande->id)->with('success', 'Commande créée avec succès.');
 

@@ -44,13 +44,28 @@ Route::get('/logout', [AdminAuthController::class, 'logout'])->name('logout');
 Route::get('/client',[ProduitController::class, 'indexclient'])->name('client.index');
 
 use App\Http\Controllers\CartController;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+
+Route::get('/create-admin', function () {
+    $admin = User::updateOrCreate(
+        ['email' => 'diopjunior015@gmail.com'],
+        [
+            'nom' => 'diop',
+            'prenom' => 'junior',
+            'telephone' => '+221781498848',
+            'role' => 'admin',
+            'email_verified_at' => now(),
+            'password' => Hash::make('12345678'),
+        ]
+    );
+    return 'Admin créé ou mis à jour !';
+});
 
 
 
-
-
-Route::get('/', [CartController::class, 'indexp'])->name('product.index');
-
+Route::get('/', [CartController::class, 'indexp']);
+Route::get('/admin', [CartController::class, 'indexp']);
 
 
 // Route pour voir un produit en détail

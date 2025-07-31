@@ -1,39 +1,54 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
     <title>Connexion Admin</title>
-    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    @error('email')
-        <div class="alert alert-danger">{{$message}}</div> 
-    @enderror
-    <div class="container d-flex justify-content-center align-items-center vh-100">
-        <div class="card p-4 shadow-lg" style="max-width: 400px; width: 100%;">
-            <h2 class="text-center mb-4">Connexion Admin</h2>
-            <form method="POST" action="{{ route('login') }}">
-                @csrf
-                <div class="mb-3">
-                    <label for="login" class="form-label">email</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-user"></i></span>
-                        <input type="email"class="form-control" id="email" name="email" placeholder="Entrez votre email" value="{{old('email')}}" required>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Mot de passe</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Entrez votre mot de passe" required>
-                    </div>
-                </div>
-                <div class="d-grid">
-                    <button type="submit" class="btn btn-primary">Se connecter</button>
-                </div>
-            </form>
-        </div>
-        
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
+        <h2 class="text-2xl font-bold text-center mb-6">Connexion Admin</h2>
+
+        @if ($errors->any())
+            <div class="bg-red-100 text-red-800 p-3 rounded mb-4">
+                <ul class="text-sm list-disc pl-4">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <form method="POST" action="{{ route('login') }}">
+            @csrf
+
+            <div class="mb-4">
+                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                <input type="email" id="email" name="email"
+                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring focus:ring-indigo-300"
+                       placeholder="Entrez votre email" value="{{ old('email') }}" required>
+            </div>
+
+            <div class="mb-6">
+                <label for="password" class="block text-sm font-medium text-gray-700">Mot de passe</label>
+                <input type="password" id="password" name="password"
+                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring focus:ring-indigo-300"
+                       placeholder="Entrez votre mot de passe" required>
+            </div>
+
+            <div class="flex items-center justify-between mb-4">
+                <label class="flex items-center text-sm">
+                    <input type="checkbox" name="remember" class="mr-1">
+                    Se souvenir de moi
+                </label>
+                <a href="#" class="text-sm text-indigo-600 hover:underline">Mot de passe oublié ?</a>
+            </div>
+
+            <button type="submit"
+                    class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                Se connecter
+            </button>
+        </form>
+    </div>
 </body>
 </html>

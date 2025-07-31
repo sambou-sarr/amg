@@ -107,6 +107,15 @@
                             </a>
                         </li>
                     </ul>
+                        
+                    <!-- Bouton de déconnexion aligné à droite -->
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link text-white btn btn-danger px-3" href="{{ route('logout') }}">
+                                <i class="fas fa-sign-out-alt"></i> Déconnexion
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -120,15 +129,6 @@
     <footer class="footer mt-auto py-5 text-white" style="background: linear-gradient(90deg, #4b79a1, #283e51);">
         <div class="container">
             <div class="row">
-                <div class="col-md-4 mb-3">
-                    <h5>À propos de nous</h5>
-                    <p class="text-muted">
-                      Chez Amg Juices, nous sommes passionnés par la santé et le bien-être. Basés à Dakar, nous proposons une large gamme de jus de fruits naturels, frais et savoureux, préparés avec soin à partir des meilleurs fruits locaux. Notre mission est d’offrir à nos clients des boissons 100% naturelles, sans additifs ni conservateurs, pour une expérience saine et rafraîchissante.
-
-Nous nous engageons à fournir des produits de qualité supérieure tout en valorisant les saveurs authentiques de nos régions. Avec un service client attentif et réactif, Lebouto Juices est votre partenaire idéal pour une hydratation saine au quotidien.
-                    </p>
-                </div>
-
                 <div class="col-md-3 mb-3">
                     <h5>Contactez-nous</h5>
                     <ul class="list-unstyled">

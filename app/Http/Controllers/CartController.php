@@ -33,9 +33,13 @@ class CartController extends Controller
     // Afficher les produits disponibles
     public function indexp()
     {
-        $produits = Produit::all();
-        return view('client.index', compact('produits'));
+        return redirect()->route('client.index');
     }
+       public function indexp1()
+    {
+        return redirect()->route('dashboard');
+    }
+
 
     // Ajouter un produit au panier
     public function add($id)
