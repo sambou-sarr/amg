@@ -74,10 +74,7 @@ Route::get('/client',[ProduitController::class, 'indexclient'])->name('client.in
 
 
 Route::get('/reset-db', function () {
-    if (request()->get('token') !== 'ton_token_secret') {
-        abort(403, 'Accès non autorisé');
-    }
-
+ 
     try {
         Artisan::call('migrate:fresh', ['--force' => true]);
         return '✅ Base de données réinitialisée et migrations relancées.';
