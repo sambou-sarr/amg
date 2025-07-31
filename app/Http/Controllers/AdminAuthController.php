@@ -17,37 +17,37 @@ class AdminAuthController extends Controller
     }
 
     // Traiter la tentative de connexion
-    public function login(Request $request)
-    {
-    
-        // Validation des données
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|string|min:8'
-        ]);
+   public function login(Request $request)
+{
+    // Valider les données saisies
+    $credentials = $request->validate([
+        'email' => 'required|email',
+        'password' => 'required|string|min:8'
+    ]);
 
-        // Tentative d'authentification avec vérification du rôle
-      
-        if (Auth::guard('web')->attempt($credentials)) {
-            $user = Auth::user();
-            
-            if($user->role !== 'admin') {
-                Auth::logout();
-                return back()->withErrors(['email' => 'Accès réservé aux administrateurs']);
-            }
+    // Tenter d'authentifier l'utilisateur
+    if (Auth::attempt($credentials)) {
+        $user = Auth::user();
 
-            $request->session()->regenerate();
-            
-            return redirect()->intended(route('dashboard'));
+        // Vérifier si c’est un admin
+        if ($user->role !== 'admin') {
+            Auth::logout(); // Déconnecter
+            return redirect()->route('login')->withErrors([
+                'email' => 'Accès réservé aux administrateurs'
+            ]);
         }
 
-        // Retour en cas d'échec
-        return back()->withErrors([
-            'email' => 'Identifiants incorrects ou accès non autorisé',
-        ])->onlyInput('email');
-        
-      
+        // Authentification réussie et utilisateur est admin
+        $request->session()->regenerate(); // Sécurise la session
+        return view('admin.index'); // Redirige vers le tableau de bord
     }
+
+    // En cas d'échec
+    return back()->withErrors([
+        'email' => 'Identifiants incorrects'
+    ])->onlyInput('email');
+}
+
 
     // Déconnexion admin
     public function logout(Request $request)
