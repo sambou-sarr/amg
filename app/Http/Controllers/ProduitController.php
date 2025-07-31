@@ -40,9 +40,12 @@ class ProduitController extends Controller
 
             foreach ($allowed as $field) {
                 if ($request->hasFile($field)) {
-                    $images[$field] = $request->file($field)->store('produits', 'public');
+                    $filename = time() . '_' . $request->file($field)->getClientOriginalName();
+                    $request->file($field)->move(public_path('produits'), $filename);
+                    $images[$field] = 'produits/' . $filename;
                 }
             }
+
             $produit = new Produit();
             $produit->libelle =$request->libelle ;
             $produit->id_categorie = 0;

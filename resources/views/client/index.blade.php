@@ -16,8 +16,7 @@
     @forelse($products as $produit)
         <div class="col-sm-6 col-md-4 col-lg-3">
             <div class="card h-100 shadow-sm border-0">
-                <img src="{{ asset('storage/' . $produit->image1) }}" 
-                     alt="{{ $produit->libelle }}" 
+                <img src="{{ asset('produits/' . basename($produit->image1)) }}" alt="{{ $produit->libelle }}" 
                      class="card-img-top" style="object-fit: cover; height: 200px;">
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">{{ $produit->libelle }}</h5>
