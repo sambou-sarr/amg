@@ -39,7 +39,7 @@ class AdminAuthController extends Controller
 
         // Authentification réussie et utilisateur est admin
         $request->session()->regenerate(); // Sécurise la session
-        return view('admin.index'); // Redirige vers le tableau de bord
+        return redirect()->route('dashboard'); // Redirige vers le tableau de bord
     }
 
     // En cas d'échec
