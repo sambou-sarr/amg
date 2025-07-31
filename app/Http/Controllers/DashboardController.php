@@ -15,7 +15,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        try {
+      
             // Statistiques
             $stats = $this->getDashboardStats();
            
@@ -25,11 +25,8 @@ class DashboardController extends Controller
             // Dernières commandes
             $commandes = $this->getRecentOrders();
             return view('admin.index', compact('stats', 'commandes','chartData')); // Ajout de 'commandes' dans la vue
-        } catch (\Exception $e) {
-            Log::error('Dashboard Error: ' . $e->getMessage());
-            // Affiche un message d'erreur plus adapté en production
-            return redirect()->route('dashboard')->with('error', 'Une erreur est survenue, veuillez réessayer plus tard.');
-        }
+      
+
     }
     
     protected function getDashboardStats(): array
