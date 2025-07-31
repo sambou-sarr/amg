@@ -3,11 +3,9 @@
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\CategorieController;
-use App\Http\Controllers\dashboardController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProduitController;
-use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Illuminate\Support\Facades\Route;
-use Barryvdh\DomPDF\Facades\Pdf;
 
 
 Route::get('/user', function () {return view('index');});
@@ -36,7 +34,7 @@ Route::post('/commande/store', [CommandeController::class, 'store'])->name('comm
 Route::get('/commande/{id}', [CommandeController::class, 'show'])->name('commande.show')->middleware('auth');
 
 Route::get('/commandes/{id}', [CommandeController::class, 'details'])->name('commandes.details')->middleware('auth');
-Route::get('/admin/dashboard', [dashboardController::class, 'index'])->name('dashboard')->middleware('auth');
+Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
 Route::get('/commandes/{commande}/facture', [CommandeController::class, 'downloadFacture'])->name('commandes.download.facture')->middleware('auth');
 Route::get('/login', [AdminAuthController::class, 'loginForm'])->name('login');
 Route::post('/login', [AdminAuthController::class, 'login']);
