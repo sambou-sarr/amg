@@ -29,13 +29,7 @@ class AdminAuthController extends Controller
     if (Auth::attempt($credentials)) {
         $user = Auth::user();
 
-        // Vérifier si c’est un admin
-        if ($user->role !== 'admin') {
-            Auth::logout(); // Déconnecter
-            return redirect()->route('login')->withErrors([
-                'email' => 'Accès réservé aux administrateurs'
-            ]);
-        }
+       
 
         // Authentification réussie et utilisateur est admin
         $request->session()->regenerate(); // Sécurise la session
