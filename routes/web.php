@@ -71,6 +71,22 @@ Route::middleware('auth')->group(function () {
 Route::get('/client',[ProduitController::class, 'indexclient'])->name('client.index');
 
 
+
+
+Route::get('/reset-db', function () {
+    if (request()->get('token') !== 'ton_token_secret') {
+        abort(403, 'Accès non autorisé');
+    }
+
+    try {
+        Artisan::call('migrate:fresh', ['--force' => true]);
+        return '✅ Base de données réinitialisée et migrations relancées.';
+    } catch (\Exception $e) {
+        return '❌ Erreur : ' . $e->getMessage();
+    }
+});
+
+
 Route::get('/', [CartController::class, 'indexp']);
 Route::get('/admin', [CartController::class, 'indexp1']);
 
