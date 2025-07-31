@@ -47,12 +47,12 @@
                     <div class="mb-4">
                         <h5 class="text-muted mb-3">Images du produit</h5>
                         <div class="row g-3">
-                          
+                            @foreach(['image', 'image1', 'image2'] as $key => $field)
                             <div class="col-md-4">
                                 <div class="card image-upload-card h-100">
                                     <div class="card-body text-center">
                                         <i class="fas fa-image fa-3x text-muted mb-3"></i>
-                                        <p class="mb-0">Image 
+                                        <p class="mb-0">Image {{ $key + 1 }} 
                                             <small class="text-muted">(optionnelle)</small>
                                         </p>
                                         <input type="file" 
@@ -62,6 +62,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @endforeach
                         </div>
                     </div>
     

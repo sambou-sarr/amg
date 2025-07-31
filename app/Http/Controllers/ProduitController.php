@@ -50,7 +50,8 @@ class ProduitController extends Controller
             $produit->code = '800';
             $produit->prix_u = $request->prix;
             $produit->image1 = $images['image'] ?? null;
-     
+            $produit->image2 = $images['image1'] ?? null;
+            $produit->image3= $images['image2'] ?? null;
            //dd($produit);
            $produit->save();
 
