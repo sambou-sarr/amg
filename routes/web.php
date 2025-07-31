@@ -6,7 +6,10 @@ use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProduitController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\CartController;
+use App\Models\User;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Hash;
 
 Route::get('/user', function () {return view('index');});
 
@@ -36,15 +39,27 @@ Route::get('/commande/{id}', [CommandeController::class, 'show'])->name('command
 Route::get('/commandes/{id}', [CommandeController::class, 'details'])->name('commandes.details')->middleware('auth');
 Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
 Route::get('/commandes/{commande}/facture', [CommandeController::class, 'downloadFacture'])->name('commandes.download.facture')->middleware('auth');
-Route::get('/login', [AdminAuthController::class, 'loginForm'])->name('login');
-Route::post('/login', [AdminAuthController::class, 'login']);
-Route::get('/logout', [AdminAuthController::class, 'logout'])->name('logout');
+
+// Routes accessibles uniquement aux invités (non connectés)
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AdminAuthController::class, 'loginForm'])->name('login');
+    Route::post('/login', [AdminAuthController::class, 'login']);
+});
+
+// Route accessible uniquement aux utilisateurs connectés
+Route::middleware('auth')->group(function () {
+    Route::get('/logout', [AdminAuthController::class, 'logout'])->name('logout');
+});
+
 Route::get('/client',[ProduitController::class, 'indexclient'])->name('client.index');
 
-use App\Http\Controllers\CartController;
-use App\Models\User;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Hash;
+Route::get('/test-https', function() {
+    return [
+        'https' => request()->isSecure(),
+        'header_x_forwarded_proto' => request()->header('X-Forwarded-Proto'),
+    ];
+});
+
 
 Route::get('/create-admin', function () {
     $admin = User::updateOrCreate(
@@ -71,7 +86,7 @@ Route::get('/run-migration', function () {
 
 
 Route::get('/', [CartController::class, 'indexp']);
-Route::get('/admin', [CartController::class, 'indexp']);
+Route::get('/admin', [CartController::class, 'indexp1']);
 
 
 // Route pour voir un produit en détail
