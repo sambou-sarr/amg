@@ -229,7 +229,7 @@ body {
                 @foreach($cart as $item)
                     <tr>
                         <td data-label="">
-                            <img src="{{ $produit->image }}" 
+                            <img src="{{  $item['image']) }}" 
                                  class="cart-item-image" 
                                  alt="{{ $item['name'] }}">
                         </td>
