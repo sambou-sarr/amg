@@ -26,7 +26,7 @@ class CommandeController extends Controller
     public function updateStatus(Request $request, $id)
     {
         $commande = Commande::find($id);
-        $commande->Statut = $request->statut;
+        $commande->statut = $request->statut;
         $commande->update();
 
         return redirect()->route('commandes.index')->with('success', 'Statut mis à jour.');
