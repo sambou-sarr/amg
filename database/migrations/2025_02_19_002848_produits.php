@@ -19,8 +19,8 @@ return new class extends Migration
             $table->integer('stock');
             $table->integer('id_categorie');
             $table->string('image1');
-            $table->string('image2');
-            $table->string('image3');
+            $table->string('image2')->nullable();
+            $table->string('image3')->nullable();
             $table->timestamps();
 
         });
