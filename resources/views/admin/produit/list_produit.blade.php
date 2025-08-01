@@ -32,9 +32,10 @@
                         <tbody>
                             @foreach ($produits as $produit)
                                 <tr>
-                                    <td>
-                                        <img src="{{ asset('storage/' . $produit->image1) }}" alt="{{ $produit->libelle }}" style="width: 50px; height: auto;">
+                                   <td>
+                                        <img src="{{ $produit->image1 }}" alt="{{ $produit->libelle }}" style="width: 50px; height: auto;">
                                     </td>
+
                                     <td>{{ $produit->libelle }}</td>
                                     <td>{{ $produit->stock }}</td>
                                     <td>{{ $produit->prix_u, 0, ',', ' ' }} FCFA</td>

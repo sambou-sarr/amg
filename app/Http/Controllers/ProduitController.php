@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Produit;
 use App\Models\Categorie;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -36,12 +37,13 @@ class ProduitController extends Controller
     public function store(Request $request)
     {
             $images = [];
-            $allowed = ['image', 'image1', 'image2'];
-
-            foreach ($allowed as $field) {
+            $donnes = ['image', 'image1', 'image2'];
+            dump(config('cloudinary'));
+           foreach ($donnes as $field) {
             if ($request->hasFile($field)) {
-                $path = $request->file($field)->store('produits', 'public');
-                $images[$field] = $path; // ex: produits/xxx.jpg
+                // C'est ce code qui envoie à Cloudinary
+               $uploadedUrl = Cloudinary::uploadApi()->upload($request->file($field)->getRealPath())['secure_url'];
+                $images[$field] = $uploadedUrl;
             }
         }
 

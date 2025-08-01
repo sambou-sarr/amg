@@ -59,6 +59,13 @@ return [
             'throw' => false,
             'report' => false,
         ],
+          'cloudinary' => [
+        'driver'     => 'cloudinary',
+        'cloud'      => env('CLOUDINARY_CLOUD_NAME'), // <-- RENOMMÉ de 'cloud_name' à 'cloud'
+        'key'        => env('CLOUDINARY_API_KEY'),    // <-- RENOMMÉ de 'api_key' à 'key'
+        'secret'     => env('CLOUDINARY_API_SECRET'), // <-- RENOMMÉ de 'api_secret' à 'secret'
+        'secure'     => true,
+    ],
 
     ],
 
