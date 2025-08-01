@@ -38,7 +38,7 @@ class ProduitController extends Controller
     {
             $images = [];
             $donnes = ['image', 'image1', 'image2'];
-            dump(config('cloudinary'));
+            
            foreach ($donnes as $field) {
             if ($request->hasFile($field)) {
                 // C'est ce code qui envoie à Cloudinary
